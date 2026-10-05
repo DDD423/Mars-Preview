@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.davework/
+.davework-test*/
+.test-workspaces/
+*.egg-info/
+artifacts/*
+!artifacts/filter1.0.pt
+!artifacts/translator1.0.pt
+!artifacts/MODEL_MANIFEST.json
+!artifacts/VALIDATION.json

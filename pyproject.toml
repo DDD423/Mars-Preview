@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mars-preview"
+version = "1.0.0.dev0"
+description = "Local Filter-Translator file agent framework"
+requires-python = ">=3.9"
+dependencies = ["torch==2.8.0", "numpy>=1.24,<2"]
+
+[tool.setuptools.packages.find]
+include = ["filter10*", "davework*", "translator10*"]
+
+[tool.setuptools.package-data]
+davework = ["static/*", "PROTOCOL.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
