@@ -1,0 +1,20 @@
+{
+  "rows": 620,
+  "metric": "ungated actual file outcome correctness, including refusals",
+  "points": [
+    {
+      "name": "Mars Preview",
+      "parameters": 3599021,
+      "seconds": 13.1838479,
+      "accuracy": 67.74193548387096,
+      "color": "#2765F5"
+    },
+    {
+      "name": "Qwen2.5-0.5B-Instruct",
+      "parameters": 494032768,
+      "seconds": 902.5308848999999,
+      "accuracy": 5.161290322580645,
+      "color": "#7A61A8"
+    }
+  ]
+}
