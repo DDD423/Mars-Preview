@@ -15,5 +15,3 @@ include = ["filter10*", "davework*", "translator10*"]
 [tool.setuptools.package-data]
 davework = ["static/*", "PROTOCOL.md"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
