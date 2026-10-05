@@ -1,0 +1,19 @@
+{
+  "product": "Mars Preview",
+  "date": "2026-10-05",
+  "release_tests": {
+    "passed": 51,
+    "seconds": 19.81
+  },
+  "weights_match_measured_pair": true,
+  "model_weights_changed": false,
+  "training_performed_for_release": false,
+  "plots": {
+    "parameter_axis": "linear, millions",
+    "time_axis": "linear, seconds for 620 requests",
+    "accuracy_axis": "linear, 0 to 100%",
+    "metric": "ungated actual file outcomes"
+  },
+  "private_configs_or_workspaces_published": false,
+  "third_party_model_weights_published": false
+}
