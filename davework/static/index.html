@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dave Work</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header><div><h1>Dave Work<span class="dot">.</span></h1><p>本地工作区 · Agent Harness</p></div><div class="header-status"><span id="mainModel" class="badge">主模型 · 没有模型</span><span id="filterStatus" class="badge">filter1.0 · 尚未加载</span><span id="translatorStatus" class="badge">translator1.0 · 尚未加载</span></div></header>
+<main>
+<aside class="panel config">
+  <div class="section-head"><h2>配置</h2><span class="muted">LOCAL</span></div>
+  <form id="configForm">
+    <label for="workspace">工作区</label><input id="workspace" required autocomplete="off" placeholder="工作区绝对路径">
+    <label for="recentWorkspaces">最近工作区</label><select id="recentWorkspaces"><option value="">选择工作区</option></select>
+    <label for="checkpoint">filter 权重</label><input id="checkpoint" required autocomplete="off">
+    <div class="two"><div><label for="device">运行设备</label><select id="device"><option value="cpu">CPU</option><option value="cuda">CUDA</option></select></div><div><label for="timeout">终端超时 / 秒</label><input id="timeout" type="number" min="1" max="3600" value="120"></div></div>
+    <label for="translator_checkpoint">translator 权重</label><input id="translator_checkpoint" required autocomplete="off">
+    <label for="translator_device">translator 运行设备</label><select id="translator_device"><option value="cpu">CPU</option><option value="cuda">CUDA</option></select>
+    <label for="excludes">检索排除目录（逗号分隔）</label><textarea id="excludes" rows="2"></textarea>
+    <label class="check"><input id="autoScroll" type="checkbox" checked>输出自动滚动</label>
+    <details><summary>工具开关</summary><div id="toolSwitches"></div></details>
+    <button type="submit" class="solid full">保存配置</button>
+    <p id="configMessage" class="muted small">配置仅影响新请求。当前任务使用原工作区。</p>
+  </form>
+  <div class="scope"><strong>执行范围</strong><p>文件工具限制在工作区内。终端使用当前用户权限，工作区不是操作系统沙箱。</p></div>
+  <div class="recent"><div class="section-head"><h3>最近任务</h3><button id="refreshTasks" class="text-button" type="button">刷新</button></div><div id="recentTasks"><p class="muted small">还没有任务</p></div></div>
+</aside>
+<div class="right-column">
+<section class="panel work">
+  <div class="section-head"><h2>工作台</h2><span id="connection" class="muted small">正在连接</span></div>
+  <div class="tabs" role="tablist"><button class="tab active" data-tab="request">请求</button><button class="tab" data-tab="tools">工具操作</button><button class="tab" data-tab="json">JSON 调试</button></div>
+  <div id="requestPane" class="pane">
+    <form id="requestForm"><label for="requestText">想处理什么？</label><textarea id="requestText" rows="3" placeholder="例如：把叫做草稿的文件改名为最终版"></textarea><div class="actions"><span class="muted small">filter → translator → 预览；点击执行才操作文件</span><button class="solid" id="extractButton">生成计划 →</button></div></form>
+    <div id="extraction" class="extraction hidden"><div class="section-head"><h3>参数上下文</h3><span id="extractState" class="badge"></span></div><div class="context-meta" id="contextMeta"></div><label>原文</label><pre id="original"></pre><label>归一化文字</label><div id="normalized" class="normalized"></div><div class="table-wrap"><table><thead><tr><th>占位符</th><th>类型</th><th>原文</th><th>码点范围</th></tr></thead><tbody id="bindings"></tbody></table></div><p id="filterReason" class="muted small"></p><p id="plannerMessage" class="notice"></p><button type="button" id="useTools">用此上下文操作工具 →</button></div>
+  </div>
+  <div id="toolsPane" class="pane hidden"><p class="muted small">文字字段可选择引用当前参数。普通字符串“{1}”会保持原样。</p><label for="toolSelect">选择工具</label><select id="toolSelect"></select><form id="toolForm"><div id="toolFields"></div><div class="actions"><span id="toolContext" class="context-meta">将创建独立手动上下文</span><button type="submit" class="solid">生成预览 →</button></div></form></div>
+  <div id="jsonPane" class="pane hidden"><p class="muted small">davework/1 · 参数引用 {"slot":1} · 结果引用 {"result":{"step":"copy_1","field":"path"}}</p><div class="actions"><button id="newContext" type="button">新建空上下文</button><button id="jsonExample" type="button">填入列目录示例</button></div><label for="jsonEditor">计划 JSON</label><textarea id="jsonEditor" class="code" rows="12" spellcheck="false"></textarea><div class="actions"><span class="muted small">执行前必须预览</span><button id="jsonPreview" class="solid">校验并预览 →</button></div></div>
+  <div id="selectionBox" class="selection-box hidden"><h3>精确名称出现重名</h3><p>请选择该参数实际对应的路径，再生成预览。</p><select id="pathSelection"></select><button id="confirmSelection">使用此路径</button></div>
+  <div id="previewBox" class="preview hidden"><div class="section-head"><h3>执行预览</h3><span class="badge">绑定后的真实参数</span></div><p id="previewWorkspace" class="context-meta"></p><pre id="previewContent"></pre><div class="actions"><span class="muted small">预览有效期 10 分钟，一次执行</span><button id="executeButton" class="solid">执行计划 →</button></div></div>
+</section>
+<section class="panel output"><div class="section-head"><div><h2>输出</h2><span id="taskState" class="muted small">等待任务</span></div><div class="output-actions"><button id="stopButton" disabled>停止任务</button><button id="clearOutput">清空显示</button></div></div><div id="outputLog" class="output-log" aria-live="polite"><div class="empty"><span>↳</span><p>每一步的状态与结果，都会出现在这里。</p></div></div></section>
+</div>
+</main>
+<div id="toast" role="alert" class="toast hidden"></div>
+<script src="/app.js"></script>
+</body></html>
