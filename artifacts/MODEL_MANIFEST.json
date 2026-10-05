@@ -1,0 +1,29 @@
+{
+  "product": "Mars Preview",
+  "release": "1.0.0-preview",
+  "models": {
+    "filter1.0": {
+      "file": "artifacts/filter1.0.pt",
+      "parameters": 270488,
+      "bytes": 1096276,
+      "sha256": "e5100810da31fdf769c74f4cd8968a398330dc663c73d82f48f57f632747c100"
+    },
+    "translator1.0": {
+      "file": "artifacts/translator1.0.pt",
+      "parameters": 3328533,
+      "bytes": 13354004,
+      "sha256": "322940f47b267a9e55151d5362517e4d3a5804da79219ab7629d11e24204f989"
+    }
+  },
+  "total_parameters": 3599021,
+  "benchmark": {
+    "suite_sha256": "ff40617cdacfe99ec655d3afaf08209912726c14b3b393650f6f4acb98987160",
+    "requests": 620,
+    "fixed_lab_requests": 580,
+    "separately_authored_requests": 40,
+    "accuracy_ungated": 0.6774193548387096,
+    "accuracy_with_release_gate": 0.6709677419354839,
+    "loaded_inference_seconds": 13.1838479,
+    "comparison_model": "Qwen/Qwen2.5-0.5B-Instruct"
+  }
+}
